@@ -5,8 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-
-	// "net/http/httptest"
 	"testing"
 )
 
@@ -18,7 +16,6 @@ type args struct {
 func setup(t *testing.T) (*httptest.ResponseRecorder, error) {
 	dependencies = func() (*http.Response, error) {
 		return &http.Response{}, http.ErrShortBody
-		// return &http.Response{Status: "not", StatusCode: 404}, nil
 	}
 	return nil, nil
 }
@@ -95,7 +92,6 @@ func TestGetPersonHappyPath(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			dependencies = func() (*http.Response, error) {
 				return &http.Response{Status: "OK", StatusCode: 200, Body: ioutil.NopCloser(bytes.NewBufferString(`OK`))}, nil
-				// return &http.Response{Status: "not", StatusCode: 404}, nil
 			}
 			argssss := getargs(tt.args)
 			rec := httptest.NewRecorder()
@@ -119,7 +115,6 @@ func TestGetPersonHappyPath1(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			dependencies = func() (*http.Response, error) {
 				return http.Get("https://httpbin.org/get")
-				// return &http.Response{Status: "not", StatusCode: 404}, nil
 			}
 			argssss := getargs(tt.args)
 			rec := httptest.NewRecorder()

@@ -22,12 +22,15 @@ var argument []Args
 
 type deps func() (*http.Response, error)
 
+// variable assigned to anonymous function which return reponse & error of 3rd Party API end point
 var dependencies = func() (*http.Response, error) {
 	return http.Get("https://httpbin.org/get")
 }
 
+// GetPerson end point which hits 3rd party API and gets response from it /
 func GetPerson(w http.ResponseWriter, req *http.Request) {
 
+	// reponse, err := http.Get("https://httpbin.org/get")
 	reponse, err := dependencies()
 	var datastring string
 	dataPeople := Args{}
@@ -50,6 +53,7 @@ func GetPerson(w http.ResponseWriter, req *http.Request) {
 
 }
 
+// CreatePerson end point which hits 3rd party API to post person details into /
 func CreatePerson(w http.ResponseWriter, req *http.Request) {
 
 	jsonData := map[string]string{"url": "httsp://myurl", "origin": "192.00.00.8, 192.00.00.80"}
